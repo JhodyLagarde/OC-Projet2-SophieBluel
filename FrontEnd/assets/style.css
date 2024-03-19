@@ -31,6 +31,10 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
+a {
+	text-decoration: none;
+	color: ;
+}
 ol, ul {
 	list-style: none;
 }
@@ -121,6 +125,29 @@ li:hover {
 #introduction p {
 	margin-bottom: 0.5em;
 }
+.filter {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-bottom: 50px;
+}
+.work-filter {
+	margin-left: 10px;
+	background-color: transparent;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	font-weight: 700;
+	font-family: 'Work Sans';
+	font-size: 1.20em;
+	color: #1D6154;
+	padding: 0.4rem 1.5rem;
+}
+
+.active {
+	background-color: #1D6154;
+	color: white;
+}
+
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
