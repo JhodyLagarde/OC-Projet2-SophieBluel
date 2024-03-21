@@ -32,8 +32,8 @@ body {
 	line-height: 1;
 }
 a {
+	color: inherit;
 	text-decoration: none;
-	color: ;
 }
 ol, ul {
 	list-style: none;
@@ -98,7 +98,6 @@ nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
-
 li:hover {
 	color: #B1663C;
 }
@@ -131,7 +130,7 @@ li:hover {
 	justify-content: center;
 	margin-bottom: 50px;
 }
-.work-filter {
+.bouton-filtre {
 	margin-left: 10px;
 	background-color: transparent;
 	border: 1px solid #1D6154;
@@ -143,9 +142,16 @@ li:hover {
 	padding: 0.4rem 1.5rem;
 }
 
-.active {
+.bouton-actif {
+	margin-left: 10px;
+	background-color: transparent;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	font-weight: 700;
+	font-family: 'Work Sans';
 	background-color: #1D6154;
 	color: white;
+	padding: 0.4rem 1.5rem;
 }
 
 #portfolio h2 {
@@ -206,6 +212,9 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
+input[type="submit"]:hover{
+	background-color: #134038;
+}
 
 footer nav ul {
 	display: flex;
@@ -213,3 +222,41 @@ footer nav ul {
 	margin: 2em
 }
 
+/*** login page***/
+#connection {
+	width: 50%;
+	margin: auto;
+}
+#connection > * {
+	text-align: center;
+
+}
+#connection h2{
+	margin-bottom: 20px;
+}
+#connection form{
+	display: flex;
+	flex-direction: column;
+}
+#connection input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#connection label {
+	margin: 2em 0 1em 0;
+}
+#connection form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+.mdp-oublié{
+	display: flex;
+	justify-content: center;
+}
+.mdp-oublié:hover{
+	text-decoration: underline;
+}

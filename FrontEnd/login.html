@@ -13,31 +13,26 @@
     </head>
     <body>
         <header>
-            <div class="nav-for-user">
-                <h1><span class="name-of-designer">Sophie Bluel</span><span class="job-of-designer">ARCHITECTE D'INTÉRIEUR</span></h1>
-                <nav>
-                    <ul>
-                        <li><a href="index.html#portfolio">projets</a></li>
-			            <li><a href="index.html#contact">contact</a></li>
-			            <li>
-                            <a class="only-guest typography-for-login-in-user-page" href="login.html">login</a>
-			                <a id="nav-logout" class="only-admin" href="#">logout</a>
-                        </li>
-                        <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-                    </ul>
-                </nav>
-            </div>
+            <a href="../FrontEnd/index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
+            <nav>
+                <ul>
+                    <li>projets</li>
+                    <li>contact</li>
+                    <li><a href="login.html">login</a></li>
+                    <li><img src="./assets/icons/instagram.png"  alt="Instagram"></li>
+                </ul>
+            </nav>
         </header>
         <main>
-            <section class= "user-login-formulary">
+            <section id="connection">
                     <h2>Log in</h2>
-	                <form id="user-login-form" method="post" action="#">
+	                <form method="post" action="#">
 	                    <label for="email">E-mail</label>
-	                    <input type="email" name="email" id="email" required>
+	                    <input type="email" name="email" id="email">
 	                    <label for="password">Mot de passe</label>
-	                    <input type="password" name="password" id="password" required>
+	                    <input type="password" name="password" id="password">
 	                    <input type="submit" id="submit" value="Se connecter">
-	                    <a href="#">Mot de passe oublié</a>
+	                    <a class="mdp-oublié" href="#">Mot de passe oublié</a>
 	                </form>
             </section>
         </main>
