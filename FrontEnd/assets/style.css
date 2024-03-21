@@ -253,10 +253,10 @@ footer nav ul {
 	display: flex;
 	flex-direction: column;
 }
-.mdp-oublié{
+.mdp-oublie{
 	display: flex;
 	justify-content: center;
 }
-.mdp-oublié:hover{
+.mdp-oublie:hover{
 	text-decoration: underline;
 }
