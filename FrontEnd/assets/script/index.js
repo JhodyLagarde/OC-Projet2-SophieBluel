@@ -1,4 +1,4 @@
-/////// HOMEPAGE EDIT ////////
+/////// Page Principal ////////
 
 // const response = await fetch("http://localhost:5678/api/works");
 // const works = await response.json(); 
@@ -67,7 +67,8 @@ fetch("http://localhost:5678/api/categories")
         button.setAttribute("id", category.id)
         button.innerText = category.name;
         filter.appendChild(button);
-        if(category.id === 0) button.classList.add("Bouton-actif")
+        //changer la couleur du bouton "Tous" par defaut actif
+        if(category.id === 0) button.classList.add("bouton-actif")
         //filtre
         button.addEventListener('click', function(event) {
 			event.preventDefault();
