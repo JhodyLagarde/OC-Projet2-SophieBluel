@@ -153,7 +153,9 @@ li:hover {
 	color: white;
 	padding: 0.4rem 1.5rem;
 }
-
+.figure-cache{
+	display: none;
+}
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
