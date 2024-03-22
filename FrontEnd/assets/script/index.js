@@ -19,17 +19,18 @@
 //     figure.appendChild(imageFigure);
 //     figure.appendChild(titreFigure);
 // }
-const gallery = document.querySelector(".gallery")
-const figure = document.querySelectorAll("figure")
-const filter = document.querySelector(".filter")
+const gallery = document.querySelector(".gallery");
+const figure = document.querySelectorAll("figure");
+const filter = document.querySelector(".filter");
+
 // Récuperation des travaux via l'API
 fetch("http://localhost:5678/api/works")
-
 .then(function(response){
     if (response.ok){
         return response.json();
-    }
+    };
 })
+
 // Affichage des figures
 .then(function(data){
     const works = data;
@@ -45,18 +46,20 @@ fetch("http://localhost:5678/api/works")
         gallery.appendChild(figure);
         figure.appendChild(imageFigure);
         figure.appendChild(titreFigure);
-    })
-})
+    });
+});
+
 // Recuperation des categories via l'API
 fetch("http://localhost:5678/api/categories")
 .then(function(response){
     if (response.ok){
         return response.json();
-    }
+    };
 })
+
 // Affichage des boutons et filtre
 .then(function(data){
-    const categories = data
+    const categories = data;
     
     // utilisation de unshift pour créer le bouton "Tous" qui n'est pas dans les données API
     categories.unshift({id: 0, name: "Tous"});
@@ -64,30 +67,31 @@ fetch("http://localhost:5678/api/categories")
     categories.forEach((category) => {
         const button = document.createElement("button");
         button.classList.add("bouton-filtre", `.bouton-filtre-${category.id}`);
-        button.setAttribute("id", category.id)
+        button.setAttribute("id", category.id);
         button.innerText = category.name;
         filter.appendChild(button);
         //changer la couleur du bouton "Tous" par defaut actif
         if(category.id === 0) button.classList.add("bouton-actif")
+        const mesFigures = document.querySelectorAll(".projets-figure");
         //filtre
         button.addEventListener('click', function(event) {
 			event.preventDefault();
+            
             //afficher les figures correspondantes a l'id du bouton cliqué
-            let categoryId = button.getAttribute('id');
 			document.querySelectorAll(".projets-figure").forEach(workFigure => {
-				workFigure.style.display = 'none';
+				workFigure.classList.add("figure-cache");
 			});
-			document.querySelectorAll(`.projets-figure.category-${categoryId}`).forEach(workFigure => {
-				workFigure.style.display = 'block';
+			document.querySelectorAll(`.projets-figure.category-${category.id}`).forEach(workFigure => {
+				workFigure.classList.remove("figure-cache");
 			});
+
             //changer la couleur du bouton filtre actif
-            document.querySelectorAll(".bouton-filtre").forEach(boutonFiltre => {
-                boutonFiltre.classList.remove("bouton-actif")
+            document.querySelectorAll(".bouton-filtre.bouton-actif").forEach(boutonFiltre => {
+                boutonFiltre.classList.remove("bouton-actif");
             });
-            event.target.classList.add("bouton-actif")
-        })
+            event.target.classList.add("bouton-actif");
+        });
         
-    })
+    });
    
 });
-
