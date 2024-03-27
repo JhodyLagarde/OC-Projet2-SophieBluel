@@ -59,6 +59,21 @@ body {
 }
 header {
 	display: flex;
+	flex-direction: column;
+}
+.mode-edition {
+	display: flex;
+	justify-content: center;
+	color: white;
+	background-color: black;
+	padding: 19.5px 0 20.5px 0;
+}
+.mode-edition i {
+	padding-right: 11px;
+}
+.header-quand-deconnecte{
+	display: flex;
+	flex-direction: row;
 	justify-content: space-between;
 	margin: 50px 0
 }
@@ -101,6 +116,11 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+.fa-instagram {
+	font-size: 1.209em;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -158,8 +178,24 @@ li:hover {
 }
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	height: 46px;
 }
+.section-projet-connecte{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-bottom: 51px;
+}
+.modifier-projet{
+	display: flex;
+	padding-left: 31px;
+	margin-bottom: 1em;
+	align-items: center;
+}
+.modifier-projet i{
+	padding-right: 10.5px;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -222,6 +258,12 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+.deconnecte {
+	display: none;
+}
+.connecte {
+	display: none;
 }
 
 /*** login page***/
