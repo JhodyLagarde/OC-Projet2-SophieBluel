@@ -1,24 +1,5 @@
 /////// Page Principal ////////
 
-// const response = await fetch("http://localhost:5678/api/works");
-// const works = await response.json(); 
-
-// const gallery = document.querySelector(".gallery")
-
-// for (let i = 0; i < works.length; i++){
-
-//     const projets = works[i];
-//     const figure = document.createElement("figure") 
-//     const imageFigure = document.createElement("img");
-//     imageFigure.src = projets.imageUrl;
-//     imageFigure.alt = projets.title;
-//     const titreFigure = document.createElement("figcaption");
-//     titreFigure.innerText = projets.title;
-
-//     gallery.appendChild(figure);
-//     figure.appendChild(imageFigure);
-//     figure.appendChild(titreFigure);
-// }
 const gallery = document.querySelector(".gallery");
 const figure = document.querySelectorAll("figure");
 const filter = document.querySelector(".filter");
@@ -94,4 +75,17 @@ fetch("http://localhost:5678/api/categories")
         
     });
    
+});
+// Changement quand connecté
+if (localStorage.getItem("token") != null) {
+    document.querySelector(".mode-edition").classList.remove("deconnecte");
+    document.querySelector(".logout").classList.remove("deconnecte");
+    document.querySelector(".modifier-projet").classList.remove("deconnecte");
+    document.querySelector(".login").classList.add("connecte");
+    document.querySelector(".filter").classList.add("connecte");
+}
+// Déconnection
+document.getElementById("logout").addEventListener("click", function(event) {
+    event.preventDefault();
+    localStorage.removeItem("token");
 });
