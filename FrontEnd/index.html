@@ -25,8 +25,6 @@
 				<li>contact</li>
 				<li>
 					<a class="login" href="login.html">login</a>
-				</li>
-				<li>
 					<a class="logout deconnecte" id="logout" href="#">logout</a>
 				</li>
 				<li>
@@ -56,6 +54,42 @@
 					<i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier
 				</a>
 			</div>
+			<!-----Modal----->
+			<aside id="modal" class="modal1" aria-hidden="true" role="dialog" aria-labelledby="modal1-titre">
+				<div class="modal-galerie-photo">
+					<a href="#" class="modal-croix-fermer"><i class="fa-solid fa-xmark"></i></a>
+					<h3 id="modal1-titre" class="modal-titre">Galerie photo</h3>
+					<div class="modal-contenu-work">
+					</div>
+					<button class="modal-btn-ajout-photo">Ajouter une photo</button>
+				</div>	
+			</aside>
+			<aside id="modal" class="modal2" aria-hidden="true" role="dialog" aria-labelledby="modal2-titre">
+				<div class="modal-ajout-photo">
+					<div class="nav-modale">
+						<a href="#" class="modal-fleche-retour-arriere"><i class="fa-solid fa-arrow-left"></i></a>
+						<a href="#" class="modal-croix-fermer"><i class="fa-solid fa-xmark"></i></a>
+					</div>
+					<h3 class="modal2-titre">Ajout photo</h3>
+					<form id="modal-form-ajout-photo" method="post" action="#">
+						<div class="modal-ajout-photo">
+							<i id= "modal-icone-ajout-photo" class="fa-regular fa-image"></i>
+							<label id="modal-ajouter-nouvelle-photo">+ Ajouter photo</label>
+							<input id="modal-input-ajouter-nouvelle-photo" type="file" name="image" accept="image/*, .jpg, .jpeg, .png">
+							<p id="modal-format-taille-photo">jpg, png : 4mo max</p>
+						</div>
+						<div class="modal-titre-categorie">
+							<label for="modal-input-titre-photo">Titre</label>
+							<input type="text" name="title" id="form-title" value="">
+							<label for="modal-input-categorie-photo">Catégorie</label>
+							<select class="modal-choisir-categorie" id="modal-form-categorie">
+								<option value=""></option>
+							</select>
+							<input type="submit" id="modal-valider-nouveau-projet" value="Valider">
+						</div>
+					</form>
+				</div>
+			</aside>
 		</div>
 		<div class="filter">
 		</div>
