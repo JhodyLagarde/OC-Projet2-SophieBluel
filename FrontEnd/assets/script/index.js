@@ -88,4 +88,9 @@ if (localStorage.getItem("token") != null) {
 document.getElementById("logout").addEventListener("click", function(event) {
     event.preventDefault();
     localStorage.removeItem("token");
+    document.querySelector(".mode-edition").classList.add("deconnecte");
+    document.querySelector(".logout").classList.add("deconnecte");
+    document.querySelector(".modifier-projet").classList.add("deconnecte");
+    document.querySelector(".login").classList.remove("connecte");
+    document.querySelector(".filter").classList.remove("connecte");
 });
