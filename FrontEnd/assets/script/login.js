@@ -38,10 +38,13 @@ form.addEventListener("submit", function(e){
 				password.classList.remove("input-form")
 				email.classList.add("err-input");
 				password.classList.add("err-input");
-            break;
+            throw new Error("E-mail ou mot de passe incorrect");
 			//Si cas 200 alors retourner les données de l'API login
             case 200:
             return response.json();
+            //Si cas inconnu (default)
+            default:
+            throw new Error("Erreur code inconnu");
         }
     })
 	//localStorage pour stocker le token sur le navigateur et retour a la page principal
