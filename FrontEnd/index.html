@@ -50,43 +50,49 @@
 		<div class="section-projet-connecte">
 			<h2>Mes Projets</h2>
 			<div class="modifier-projet deconnecte">
-				<a href="#modal">
+				<a id="ouvrir-modal" href="#modal">
 					<i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier
 				</a>
 			</div>
 			<!-----Modal----->
-			<aside id="modal" class="modal1" aria-hidden="true" role="dialog" aria-labelledby="modal1-titre">
+			<aside id="modal" class="modal1 modal-cache" aria-hidden="true" role="dialog" aria-labelledby="modal1-titre">
 				<div class="modal-galerie-photo">
-					<a href="#" class="modal-croix-fermer"><i class="fa-solid fa-xmark"></i></a>
-					<h3 id="modal1-titre" class="modal-titre">Galerie photo</h3>
+					<a href="#" class="modal-croix-fermer" id="modal-1-croix-fermer"><i class="fa-solid fa-xmark"></i></a>
+					<h3 id="modal1-titre" class="modal1-titre">Galerie photo</h3>
 					<div class="modal-contenu-work">
 					</div>
-					<button class="modal-btn-ajout-photo">Ajouter une photo</button>
+					<hr>
+					<div class="div-modal-btn">
+						<button id="btn-ajouter-photo" class="modal-btn">Ajouter une photo</button>
+					</div>
 				</div>	
 			</aside>
-			<aside id="modal" class="modal2" aria-hidden="true" role="dialog" aria-labelledby="modal2-titre">
+			<aside id="modal" class="modal2 modal-cache" aria-hidden="true" role="dialog" aria-labelledby="modal2-titre">
 				<div class="modal-ajout-photo">
 					<div class="nav-modale">
-						<a href="#" class="modal-fleche-retour-arriere"><i class="fa-solid fa-arrow-left"></i></a>
-						<a href="#" class="modal-croix-fermer"><i class="fa-solid fa-xmark"></i></a>
+						<a href="#" class="modal-fleche-retour-arriere" id="fleche-retour"><i class="fa-solid fa-arrow-left"></i></a>
+						<a href="#" class="modal-croix-fermer" id="modal-2-croix-fermer"><i class="fa-solid fa-xmark"></i></a>
 					</div>
-					<h3 class="modal2-titre">Ajout photo</h3>
+					<h3 id="modal2-titre" class="modal2-titre">Ajout photo</h3>
 					<form id="modal-form-ajout-photo" method="post" action="#">
-						<div class="modal-ajout-photo">
+						<div class="form-modal-ajout-photo">
 							<i id= "modal-icone-ajout-photo" class="fa-regular fa-image"></i>
-							<label id="modal-ajouter-nouvelle-photo">+ Ajouter photo</label>
-							<input id="modal-input-ajouter-nouvelle-photo" type="file" name="image" accept="image/*, .jpg, .jpeg, .png">
-							<p id="modal-format-taille-photo">jpg, png : 4mo max</p>
+							<label for="modal-input-ajouter-nouvelle-photo" class="modal-ajouter-nouvelle-photo">+ Ajouter photo</label>
+							<input id="modal-input-ajouter-nouvelle-photo" type="file" name="image" accept="image/*, .jpg, .jpeg, .png" required>
+							<p class="modal-format-taille-photo">jpg, png : 4mo max</p>
 						</div>
-						<div class="modal-titre-categorie">
-							<label for="modal-input-titre-photo">Titre</label>
-							<input type="text" name="title" id="form-title" value="">
-							<label for="modal-input-categorie-photo">Catégorie</label>
-							<select class="modal-choisir-categorie" id="modal-form-categorie">
+						<div class="form-modal-titre-categorie">
+							<label class="titre-modal-input-titre-photo" for="modal-input-titre-photo">Titre</label>
+							<input type="text" name="title" id="modal-input-titre-photo" value="" required>
+							<label class="titre-modal-form-categorie" for="modal-input-categorie-photo">Catégorie</label>
+							<select id="modal-input-categorie-photo" required>
 								<option value=""></option>
 							</select>
-							<input type="submit" id="modal-valider-nouveau-projet" value="Valider">
-						</div>
+							<hr>
+							<div class="div-modal-btn">
+							<input type="submit" id="modal-valider-nouveau-projet" class="inactif" value="Valider">
+							</div>
+					</div>
 					</form>
 				</div>
 			</aside>
@@ -106,7 +112,7 @@
 			<input type="email" name="email" id="email">
 			<label for="message">Message</label>
 			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<input type="submit" value="Envoyer">
+			<input class="submit-non-modale" type="submit" value="Envoyer">
 		</form>
 	</section>
 </main>
