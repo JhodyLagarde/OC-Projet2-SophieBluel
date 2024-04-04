@@ -241,7 +241,7 @@ li:hover {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+.submit-non-modale{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -251,7 +251,7 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
-input[type="submit"]:hover{
+.submit-non-modale:hover{
 	background-color: #134038;
 }
 
@@ -272,8 +272,8 @@ footer nav ul {
 
 /*** Modal ***/
 
-.modal1, 
-.modal2 {
+.modal1,
+.modal2{
 	position: fixed;
 	display: flex;
 	flex-direction: row;
@@ -284,12 +284,212 @@ footer nav ul {
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.4);
+}
+.modal-galerie-photo,
+.modal-ajout-photo{
+	display: flex;
+	flex-direction: column;
+	width: 32%;
+	padding: 25px 30px 55px 30px;
+	background-color: white;
+	border-radius: 10px;
+}
+.modal-croix-fermer{
+	display: flex;
+	justify-content: end;
+}
+.modal-cache{
 	display: none;
 }
+.modal-croix-fermer i{
+	font-size: 1.3em ;
+}
+.modal-fleche-retour-arriere i{
+	font-size: 1.5em;
+}
+.nav-modale{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.div-modal-btn{
+	display: flex;
+	justify-content: center;
+}
+.modal-btn{
+	font-family: 'Syne';
+	font-size: 14px;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	background-color: #1D6154;
+	color: white;
+	width: 237px;
+	padding: 0.5rem 1.5rem;
+}
+.modal-btn:hover{
+	background-color: #134038;
+}
+/*** aspect modal 1 ***/
+.modal-galerie-photo{
+	height: 620px;
+}
+.modal1-titre{
+	display: flex;
+	justify-content: center;
+	margin: 15px 0 46px 0;
+	font-size: 26px;
+	line-height: 30.5px;
+}
+.modal-contenu-work{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 0 80px ;
+	gap: 10px;
+	overflow-y: scroll;
+	scrollbar-width: none;
+}
+.modal-projets-figure{
+	margin-bottom: 20px;
+	align-self: center;
+}
+.modal-contenu-work img{
+	width: 78px;
+	height: 104px;
+}
+.trash{
+	margin-top: 6px;
+	margin-left: -24px;
+	padding: 3px 4.5px 3.5px 4px;
+	color: #FFFFFF;
+	background: #000000;
+	border-radius: 2px;
+	position: absolute;
+}
+.trash::before{
+	font-size: 0.9em;
+}
+.modal-galerie-photo hr {
+	margin: 47px 80px 38px 80px;
+	border-top: 1px solid #B3B3B3;
+}
 
-.modale-galerie-photo{
-	width: 630px;
-	background-color: white;
+/*** aspect modal 2 ***/
+.modal-ajout-photo{
+	height: 600px;
+}
+#modal-form-ajout-photo{
+	padding: 0 80px 0 80px;
+}
+.modal2-titre{
+	display: flex;
+	justify-content: center;
+	margin: 15px 0 36px 0;
+	font-size: 26px;
+	line-height: 30.5px;
+}
+.form-modal-ajout-photo{
+	display: flex;
+	flex-direction: column;
+	background-color:#E8F1F6;
+	border-radius: 3px;
+	padding: 22.5px 0 19px 0;
+	margin-bottom: 30px;
+}
+#modal-previsu-image{
+	width: 30%;
+	height: 193px;
+	padding: 0;
+	align-self: center;
+	object-fit: cover;
+}
+.form-modal-ajout-photo i{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 6px;
+	font-size: 4.75em;
+	color: #B9C5CC;
+}
+#modal-input-ajouter-nouvelle-photo{
+	display: none;
+}
+.modal-ajouter-nouvelle-photo{
+	display: flex;
+	justify-content: center;
+	margin: 0 32% 7px 32% ;
+	color: #306685;
+	background-color: #CBD6DC;
+	border-radius: 50px;
+	padding: 10px 33px;
+	white-space: nowrap;
+}
+.modal-ajouter-nouvelle-photo:hover{
+	background-color: #B2BCC2;
+}
+.modal-format-taille-photo{
+	display: flex;
+	justify-content: center;
+	font-size: 10px;
+}
+.form-modal-titre-categorie{
+	display: flex;
+	flex-direction: column;
+}
+.titre-modal-input-titre-photo,
+.titre-modal-form-categorie{
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16.42px;
+	margin-bottom: 10px;
+}
+#modal-input-titre-photo{
+	margin-bottom: 21px;
+}
+#modal-input-categorie-photo{
+	margin-bottom: 47px;
+}
+#modal-input-titre-photo,
+#modal-input-categorie-photo{
+	height: 50px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+.modal-ajout-photo hr {
+	margin: 0 0 32px 0;
+	border-top: 1px solid #B3B3B3;
+}
+.modal-previsu-photo-actif{
+	display: none;
+}
+#modal-previsu-photo-actif{
+	display: none;
+}
+#modal-valider-nouveau-projet.actif{
+	font-family: 'Syne';
+	font-size: 14px;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	background-color: #1D6154;
+	color: white;
+	width: 237px;
+	padding: 0.5rem 1.5rem;
+}
+#modal-valider-nouveau-projet.actif:hover{
+	background-color: #134038;
+}
+#modal-valider-nouveau-projet.inactif{
+	font-family: 'Syne';
+	font-size: 14px;
+	border: 1px solid #A7A7A7;
+	border-radius: 60px;
+	background-color: #A7A7A7;
+	color: white;
+	width: 237px;
+	padding: 0.5rem 1.5rem;
+}
+#modal-valider-nouveau-projet.inactif:hover{
+	cursor: default;
 }
 
 /*** login page***/
