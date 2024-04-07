@@ -50,13 +50,13 @@
 		<div class="section-projet-connecte">
 			<h2>Mes Projets</h2>
 			<div class="modifier-projet deconnecte">
-				<a id="ouvrir-modal" href="#modal">
+				<a id="ouvrir-modal" href="#modal1">
 					<i class="fa-sharp fa-regular fa-pen-to-square"></i>modifier
 				</a>
 			</div>
 			<!-----Modal----->
-			<aside id="modal" class="modal1 modal-cache" aria-hidden="true" role="dialog" aria-labelledby="modal1-titre">
-				<div class="modal-galerie-photo">
+			<aside id="modal1" class="modal1" aria-hidden="true" role="dialog" aria-labelledby="modal1-titre" style="display: none;">
+				<div class="modal-galerie-photo js-modale-stop">
 					<a href="#" class="modal-croix-fermer" id="modal-1-croix-fermer"><i class="fa-solid fa-xmark"></i></a>
 					<h3 id="modal1-titre" class="modal1-titre">Galerie photo</h3>
 					<div class="modal-contenu-work">
@@ -67,10 +67,10 @@
 					</div>
 				</div>	
 			</aside>
-			<aside id="modal" class="modal2 modal-cache" aria-hidden="true" role="dialog" aria-labelledby="modal2-titre">
-				<div class="modal-ajout-photo">
+			<aside id="modal2" class="modal2" aria-hidden="true" role="dialog" aria-labelledby="modal2-titre" style="display: none;">
+				<div class="modal-ajout-photo  js-modale-stop2">
 					<div class="nav-modale">
-						<a href="#" class="modal-fleche-retour-arriere" id="fleche-retour"><i class="fa-solid fa-arrow-left"></i></a>
+						<a href="#modal1" class="modal-fleche-retour-arriere" id="fleche-retour"><i class="fa-solid fa-arrow-left"></i></a>
 						<a href="#" class="modal-croix-fermer" id="modal-2-croix-fermer"><i class="fa-solid fa-xmark"></i></a>
 					</div>
 					<h3 id="modal2-titre" class="modal2-titre">Ajout photo</h3>
