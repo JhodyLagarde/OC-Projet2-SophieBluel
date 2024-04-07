@@ -29,6 +29,8 @@ fetch("http://localhost:5678/api/works")
         figure.appendChild(imageFigure);
         figure.appendChild(titreFigure);
     });
+    // affichage des figures dans la modale galerie avec un seul fetch
+    modalGalerie (works);
 });
 
 // Recuperation des categories via l'API
@@ -75,6 +77,8 @@ fetch("http://localhost:5678/api/categories")
         });
         
     });
+    // affichage des categories dans la modale photo avec un seul fetch
+    modalAjoutPhoto (categories);
    
 });
 
@@ -99,58 +103,82 @@ document.getElementById("logout").addEventListener("click", function(event) {
 });
 
 // comportements d'ouverture et fermeture des modales 
+// Ouverture et fermeture de la modale galerie
+let modal = null;
+//fonction d'ouverture de la modale galerie
+const ouvrirModaleGalerie = function(e) {
+    e.preventDefault()
+    modal = document.querySelector("#modal1")
+    modal.style.display = null
+    modal.removeAttribute("aria-hidden")
+    modal.setAttribute("aria-modal", "true")
+    modal.addEventListener("click", fermerModaleGallerie)    
+    modal.querySelector("#modal-1-croix-fermer").addEventListener("click", fermerModaleGallerie);
+    document.querySelector(".js-modale-stop").addEventListener("click", stopPropagation);
+    
+    let btnModalPhoto = document.getElementById("btn-ajouter-photo")
+    btnModalPhoto.addEventListener("click", fermerModaleGallerie);
+    btnModalPhoto.addEventListener("click", ouvrirModalePhoto);
+};
+//fonction de fermeture de la modale galerie
+const fermerModaleGallerie = function(e) {
+    if (modal === null) return
+    modal.style.display = "none"
+    modal.setAttribute("aria-hidden", "true")
+    modal.removeAttribute("aria-modal")
+    modal.removeEventListener("click", fermerModaleGallerie)
+    modal.querySelector("#modal-1-croix-fermer").removeEventListener("click", fermerModaleGallerie);
+    modal = null
+};
+// Ouverture et fermeture de la modale Photo
+let modalPhoto = null;
+//fonction d'ouverture de la modale photo
+const ouvrirModalePhoto = function(e) {
+    e.preventDefault()
+    modalPhoto = document.querySelector("#modal2")
+    modalPhoto.style.display = null
+    modalPhoto.removeAttribute("aria-hidden")
+    modalPhoto.setAttribute("aria-modal", "true")
+    modalPhoto.addEventListener("click", fermerModalePhoto)    
+    modalPhoto.querySelector("#modal-2-croix-fermer").addEventListener("click", fermerModalePhoto);
+    document.querySelector(".js-modale-stop2").addEventListener("click", stopPropagation);
+    document.getElementById("fleche-retour").addEventListener("click", flecheRetour)
+};
+//fonction de fermeture de la modale photo
+const fermerModalePhoto = function(e) {
+    if (modalPhoto === null) return
+    document.getElementById("modal-form-ajout-photo").reset();
+    modalPhoto.style.display = "none"
+    modalPhoto.setAttribute("aria-hidden", "true")
+    modalPhoto.removeAttribute("aria-modal")
+    modalPhoto.removeEventListener("click", fermerModaleGallerie)
+    modalPhoto.querySelector("#modal-2-croix-fermer").removeEventListener("click", fermerModaleGallerie);
+    modalPhoto = null
+    //reset de la previsualisation de l'image dans la modale photo lorsque l'on ferme la modale
+    resetPrevisu ();
+};
+// fonction de retour en arriere avec la fleche de la modale photo
+const flecheRetour = function(e) {
+    e.preventDefault()
+    modalPhoto.style.display = "none"
+    modalPhoto = null
+    resetPrevisu ();
+    ouvrirModaleGalerie(e)
+};
 
-//ouvrir modales
-//modale 1
-document.getElementById("ouvrir-modal").addEventListener("click", function(event) {
-    event.preventDefault();
-    document.querySelector(".modal1").classList.remove("modal-cache");
-});
-//modale 2
-document.getElementById("btn-ajouter-photo").addEventListener("click", function(event) {
-    event.preventDefault();
-    document.querySelector(".modal1").classList.add("modal-cache");
-    document.querySelector(".modal2").classList.remove("modal-cache");
-});
+//Stop propagation pour eviter que la modale se ferme si clic a l'interieur des modales
+const stopPropagation = function(e) {
+    e.stopPropagation()
+};
 
-//fermer modales 
-// //en cliquant a côté
-// document.getElementById("#modal").addEventListener("click", function(event) {
-//     event.stopPropagation();
-//     document.querySelector(".modal1").classList.add("modal-cache");
-//     document.querySelector(".modal2").classList.add("modal-cache");
-// });
-//modale 1 avec la croix
-document.getElementById("modal-1-croix-fermer").addEventListener("click", function(event) {
-    event.preventDefault();
-    document.querySelector(".modal1").classList.add("modal-cache");
-});
-//modale 2 avec la croix
-document.getElementById("modal-2-croix-fermer").addEventListener("click", function(event) {
-    event.preventDefault();
-    document.querySelector(".modal2").classList.add("modal-cache");
-});
-
-//fleche retour modale
-document.getElementById("fleche-retour").addEventListener("click", function(event) {
-    event.preventDefault();
-    document.querySelector(".modal1").classList.remove("modal-cache");
-    document.querySelector(".modal2").classList.add("modal-cache");
-});
+//addEventListener sur le bouton modifier pour ouvrir la premiere modale
+document.getElementById("ouvrir-modal").addEventListener("click", ouvrirModaleGalerie);
 
 //afficher et gérer le contenue dans la modale "Galerie photo"
 const galleryModal = document.querySelector(".modal-contenu-work")
 
-fetch("http://localhost:5678/api/works")
-.then(function(response){
-    if (response.ok){
-        return response.json();
-    };
-})
-
-// Affichage des figures dans la modale
-.then(function(data){
-    const works = data;
+//fonction d'affichage des figures dans la modale
+function modalGalerie (works) {
     // creation des figures et icone poubelle
     works.forEach((projets) => {
         const figure = document.createElement("figure"); 
@@ -196,23 +224,18 @@ fetch("http://localhost:5678/api/works")
             };
         });
     });
-});
-//Fetch les categories pour le form categorie dans la dexieme modale
-fetch("http://localhost:5678/api/categories")
-	.then(function(response) {
-		if(response.ok) {
-			return response.json();
-		}
-	})
-	.then(function(data) {
+};
+//Fonction d'ajout des categories dans les options de la modale ajout photo
+function modalAjoutPhoto (data) {
 		const categories = data;
+        categories.shift()
         categories.forEach((category) => {
             const choixCategorie = document.createElement("option");
             choixCategorie.setAttribute("value", category.id);
 			choixCategorie.textContent = category.name;
             document.querySelector("select").appendChild(choixCategorie);
 	    });
-    });
+};
 //Ajouter des projets
 //Lire le form pour récuperer les datas
 document.getElementById("modal-form-ajout-photo").addEventListener("submit", function(event) {
@@ -252,6 +275,7 @@ document.getElementById("modal-form-ajout-photo").addEventListener("submit", fun
     })
     //Creer les figures une fois le nouveau projet envoyé a l'API
     .then(function(json) {
+        fermerModalePhoto ();
         const figure = document.createElement("figure"); 
         figure.classList.add("projets-figure", "category-0", `category-${json.categoryId}`);
         figure.setAttribute("id", `projet-figure-${json.id}`)
@@ -266,30 +290,46 @@ document.getElementById("modal-form-ajout-photo").addEventListener("submit", fun
         document.querySelector(".gallery").appendChild(figure);
     })
 });
+
 //Verifier la taille de l'image envoyé
+
 document.getElementById("modal-input-ajouter-nouvelle-photo").addEventListener("change", () => {
-	const fileInput = document.getElementById("modal-input-ajouter-nouvelle-photo");
-	const tailleMaxImage = 4 * 1024 * 1024;
-	if(fileInput.files[0].size > tailleMaxImage) {
-		alert("Fichier trop volumineux.");
-		document.getElementById("modal-input-ajouter-nouvelle-photo").value = '';
-	}
-	else {
-		if(fileInput.files.length > 0) {
+    const fileInput = document.getElementById("modal-input-ajouter-nouvelle-photo");
+    const tailleMaxImage = 4 * 1024 * 1024;
+    if(fileInput.files[0].size > tailleMaxImage) {
+        alert("Fichier trop volumineux.");
+        document.getElementById("modal-input-ajouter-nouvelle-photo").value = '';
+    }
+    else {
+        if(fileInput.files.length > 0) {
             // Création de la prévisualisation
-			let previsuImage = document.createElement("img");
-			previsuImage.setAttribute("id","modal-previsu-image");
-			previsuImage.src = URL.createObjectURL(fileInput.files[0]);
-			document.querySelector(".form-modal-ajout-photo").appendChild(previsuImage);
-			document.querySelector("#modal-icone-ajout-photo").setAttribute("id", "modal-previsu-photo-actif");
+            let previsuImage = document.createElement("img");
+            previsuImage.setAttribute("id","modal-previsu-image");
+            previsuImage.src = URL.createObjectURL(fileInput.files[0]);
+            document.querySelector(".form-modal-ajout-photo").appendChild(previsuImage);
+            document.querySelector("#modal-icone-ajout-photo").style.display = "none"
             document.querySelector(".modal-ajouter-nouvelle-photo").classList.add("modal-previsu-photo-actif");
             document.querySelector("#modal-input-ajouter-nouvelle-photo").classList.add("modal-previsu-photo-actif");
             document.querySelector(".modal-format-taille-photo").classList.add("modal-previsu-photo-actif");
             let modalAjoutPhoto = document.querySelector(".form-modal-ajout-photo");
-			modalAjoutPhoto.style.padding = "0";
+            modalAjoutPhoto.style.padding = "0";
         }
-	}
+    };
 });
+
+//Fonction de reset de la previsualisation de l'image dans la modale photo
+
+function resetPrevisu () {
+    const previsu = document.getElementById("modal-previsu-image")
+    if (previsu) {
+        previsu.remove();
+        document.querySelector("#modal-icone-ajout-photo").style.display = null;
+        document.querySelector(".modal-ajouter-nouvelle-photo").classList.remove("modal-previsu-photo-actif");
+        document.querySelector("#modal-input-ajouter-nouvelle-photo").classList.remove("modal-previsu-photo-actif");
+        document.querySelector(".modal-format-taille-photo").classList.remove("modal-previsu-photo-actif");
+        document.querySelector(".form-modal-ajout-photo").style.padding = "22.5px 0 19px 0";
+    }
+};
 //Changement de l'aspect du btn Valider sur le form d'ajout de projets
 //fonction pour verifier si les 3 inputs sont remplis et modifier l'aspect du btn 
 function verifierNouveauContenue() {
