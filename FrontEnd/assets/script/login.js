@@ -8,7 +8,7 @@ const ErreurMdpEmail = document.createElement("p");
 
 //eventListener sur le submit du formulaire 
 form.addEventListener("submit", function(e){
-	//preventDefault pour empecher le changement de page sur le click
+	//preventDefault pour empecher le rechargement de la page sur le click
     e.preventDefault();
 		//lecture des valeurs dans les input email et password
 		const utilisateur = {
@@ -21,6 +21,7 @@ form.addEventListener("submit", function(e){
         headers: {
             "Content-Type": "application/json"
         },
+        //verifier si les données envoyé correspondes au données de l'API
         body: JSON.stringify(utilisateur),
     })
 	//Lecture de la reponse de l'API et utilisation de switch pour traiter les differents resultats

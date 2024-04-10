@@ -3,7 +3,8 @@
 const gallery = document.querySelector(".gallery");
 const figure = document.querySelectorAll("figure");
 const filter = document.querySelector(".filter");
-
+///////////////////////////////////
+//      
 // Récuperation des travaux via l'API
 fetch("http://localhost:5678/api/works")
 .then(function(response){
@@ -45,7 +46,7 @@ fetch("http://localhost:5678/api/categories")
 .then(function(data){
     const categories = data;
     
-    // utilisation de unshift pour créer le bouton "Tous" qui n'est pas dans les données API
+    // utilisation de unshift pour créer le bouton "Tous" qui n'est pas dans le tableau des données categories de l'API
     categories.unshift({id: 0, name: "Tous"});
     // creation des boutons
     categories.forEach((category) => {
@@ -61,10 +62,11 @@ fetch("http://localhost:5678/api/categories")
         button.addEventListener('click', function(event) {
 			event.preventDefault();
             
-            //afficher les figures correspondantes a l'id du bouton cliqué
+            //Caché toutes les figures
 			document.querySelectorAll(".projets-figure").forEach(workFigure => {
 				workFigure.classList.add("figure-cache");
 			});
+            //N'affiché que les figures correspondant avec l'id du bouton cliqué 
 			document.querySelectorAll(`.projets-figure.category-${category.id}`).forEach(workFigure => {
 				workFigure.classList.remove("figure-cache");
 			});
@@ -160,8 +162,13 @@ const fermerModalePhoto = function(e) {
 // fonction de retour en arriere avec la fleche de la modale photo
 const flecheRetour = function(e) {
     e.preventDefault()
+    if (modalPhoto === null) return
     modalPhoto.style.display = "none"
+    modalPhoto.setAttribute("aria-hidden", "true")
+    modalPhoto.removeAttribute("aria-modal")
+    modalPhoto.querySelector("#modal-2-croix-fermer").removeEventListener("click", fermerModaleGallerie);
     modalPhoto = null
+    //reset de la previsualisation de l'image dans la modale photo lorsque l'on ferme la modale
     resetPrevisu ();
     ouvrirModaleGalerie(e)
 };
