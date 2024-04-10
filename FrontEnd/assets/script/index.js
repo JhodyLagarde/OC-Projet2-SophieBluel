@@ -1,11 +1,17 @@
-/////// Page Principal ////////
+/////////////////////////////
+///////PAGE PRINCIPALE///////
+/////////////////////////////
 
 const gallery = document.querySelector(".gallery");
 const figure = document.querySelectorAll("figure");
 const filter = document.querySelector(".filter");
-///////////////////////////////////
-//      
+
+///////////////////////////////////////
+///////PRESENTATION DES TRAVAUX//////// 
+///////////////////////////////////////
+
 // Récuperation des travaux via l'API
+
 fetch("http://localhost:5678/api/works")
 .then(function(response){
     if (response.ok){
@@ -14,6 +20,7 @@ fetch("http://localhost:5678/api/works")
 })
 
 // Affichage des figures
+
 .then(function(data){
     const works = data;
     // creation des figures
@@ -30,11 +37,14 @@ fetch("http://localhost:5678/api/works")
         figure.appendChild(imageFigure);
         figure.appendChild(titreFigure);
     });
+
     // affichage des figures dans la modale galerie avec un seul fetch
+
     modalGalerie (works);
 });
 
 // Recuperation des categories via l'API
+
 fetch("http://localhost:5678/api/categories")
 .then(function(response){
     if (response.ok){
@@ -43,6 +53,7 @@ fetch("http://localhost:5678/api/categories")
 })
 
 // Affichage des boutons et filtre
+
 .then(function(data){
     const categories = data;
     
@@ -79,12 +90,19 @@ fetch("http://localhost:5678/api/categories")
         });
         
     });
+
     // affichage des categories dans la modale photo avec un seul fetch
+
     modalAjoutPhoto (categories);
    
 });
 
+///////////////////////////////////////////////////////
+///////COMPORTEMENTS DE CONNECTION/DECONNECTION//////// 
+///////////////////////////////////////////////////////
+
 // Changement quand connecté
+
 if (localStorage.getItem("token") != null) {
     document.querySelector(".mode-edition").classList.remove("deconnecte");
     document.querySelector(".logout").classList.remove("deconnecte");
@@ -94,6 +112,7 @@ if (localStorage.getItem("token") != null) {
 };
 
 // Déconnection
+
 document.getElementById("logout").addEventListener("click", function(event) {
     event.preventDefault();
     localStorage.removeItem("token");
@@ -104,10 +123,17 @@ document.getElementById("logout").addEventListener("click", function(event) {
     document.querySelector(".filter").classList.remove("connecte");
 });
 
-// comportements d'ouverture et fermeture des modales 
+/////////////////////////////////////////////////////////////
+///////COMPORTEMENTS D'OUVERTURE/FERMETURE DES MODALES/////// 
+/////////////////////////////////////////////////////////////
+
 // Ouverture et fermeture de la modale galerie
+
 let modal = null;
+let modalPhoto = null;
+
 //fonction d'ouverture de la modale galerie
+
 const ouvrirModaleGalerie = function(e) {
     e.preventDefault()
     modal = document.querySelector("#modal1")
@@ -122,7 +148,9 @@ const ouvrirModaleGalerie = function(e) {
     btnModalPhoto.addEventListener("click", fermerModaleGallerie);
     btnModalPhoto.addEventListener("click", ouvrirModalePhoto);
 };
+
 //fonction de fermeture de la modale galerie
+
 const fermerModaleGallerie = function(e) {
     if (modal === null) return
     modal.style.display = "none"
@@ -132,9 +160,10 @@ const fermerModaleGallerie = function(e) {
     modal.querySelector("#modal-1-croix-fermer").removeEventListener("click", fermerModaleGallerie);
     modal = null
 };
+
 // Ouverture et fermeture de la modale Photo
-let modalPhoto = null;
 //fonction d'ouverture de la modale photo
+
 const ouvrirModalePhoto = function(e) {
     e.preventDefault()
     modalPhoto = document.querySelector("#modal2")
@@ -146,7 +175,9 @@ const ouvrirModalePhoto = function(e) {
     document.querySelector(".js-modale-stop2").addEventListener("click", stopPropagation);
     document.getElementById("fleche-retour").addEventListener("click", flecheRetour)
 };
+
 //fonction de fermeture de la modale photo
+
 const fermerModalePhoto = function(e) {
     if (modalPhoto === null) return
     document.getElementById("modal-form-ajout-photo").reset();
@@ -159,7 +190,9 @@ const fermerModalePhoto = function(e) {
     //reset de la previsualisation de l'image dans la modale photo lorsque l'on ferme la modale
     resetPrevisu ();
 };
+
 // fonction de retour en arriere avec la fleche de la modale photo
+
 const flecheRetour = function(e) {
     e.preventDefault()
     if (modalPhoto === null) return
@@ -174,17 +207,25 @@ const flecheRetour = function(e) {
 };
 
 //Stop propagation pour eviter que la modale se ferme si clic a l'interieur des modales
+
 const stopPropagation = function(e) {
     e.stopPropagation()
 };
 
 //addEventListener sur le bouton modifier pour ouvrir la premiere modale
+
 document.getElementById("ouvrir-modal").addEventListener("click", ouvrirModaleGalerie);
 
+///////////////////////////////////////////////////////////////
+///////COMPORTEMENTS DE SUPPRESSION DE TRAVAUX EXISTANTS/////// 
+///////////////////////////////////////////////////////////////
+
 //afficher et gérer le contenue dans la modale "Galerie photo"
+
 const galleryModal = document.querySelector(".modal-contenu-work")
 
 //fonction d'affichage des figures dans la modale
+
 function modalGalerie (works) {
     // creation des figures et icone poubelle
     works.forEach((projets) => {
@@ -232,19 +273,90 @@ function modalGalerie (works) {
         });
     });
 };
+
+/////////////////////////////////////////////////////
+///////COMPORTEMENT D'ENVOI DE NOUVEAUX PROJET///////
+///////AU BACK-END VIA LE FORMULAIRE DE MODALE///////
+/////////////////////////////////////////////////////
+
 //Fonction d'ajout des categories dans les options de la modale ajout photo
+
 function modalAjoutPhoto (data) {
-		const categories = data;
-        categories.shift()
-        categories.forEach((category) => {
-            const choixCategorie = document.createElement("option");
-            choixCategorie.setAttribute("value", category.id);
-			choixCategorie.textContent = category.name;
-            document.querySelector("select").appendChild(choixCategorie);
-	    });
+	const categories = data;
+    //Shift pour enlever la categorie "Tous"
+    categories.shift()
+    categories.forEach((category) => {
+        const choixCategorie = document.createElement("option");
+        choixCategorie.setAttribute("value", category.id);
+		choixCategorie.textContent = category.name;
+        document.querySelector("select").appendChild(choixCategorie);
+	});
 };
+
+//Verifier la taille de l'image envoyé
+
+document.getElementById("modal-input-ajouter-nouvelle-photo").addEventListener("change", () => {
+    const fileInput = document.getElementById("modal-input-ajouter-nouvelle-photo");
+    const tailleMaxImage = 4 * 1024 * 1024;
+    if(fileInput.files[0].size > tailleMaxImage) {
+        alert("Fichier trop volumineux.");
+        document.getElementById("modal-input-ajouter-nouvelle-photo").value = '';
+    }
+    else {
+        if(fileInput.files.length > 0) {
+            // Création de la prévisualisation
+            let previsuImage = document.createElement("img");
+            previsuImage.setAttribute("id","modal-previsu-image");
+            previsuImage.src = URL.createObjectURL(fileInput.files[0]);
+            document.querySelector(".form-modal-ajout-photo").appendChild(previsuImage);
+            document.querySelector("#modal-icone-ajout-photo").style.display = "none"
+            document.querySelector(".modal-ajouter-nouvelle-photo").classList.add("modal-previsu-photo-actif");
+            document.querySelector("#modal-input-ajouter-nouvelle-photo").classList.add("modal-previsu-photo-actif");
+            document.querySelector(".modal-format-taille-photo").classList.add("modal-previsu-photo-actif");
+            let modalAjoutPhoto = document.querySelector(".form-modal-ajout-photo");
+            modalAjoutPhoto.style.padding = "0";
+        }
+    };
+});
+
+//Fonction de reset de la previsualisation de l'image dans la modale photo
+
+function resetPrevisu () {
+    const previsu = document.getElementById("modal-previsu-image")
+    if (previsu) {
+        previsu.remove();
+        document.querySelector("#modal-icone-ajout-photo").style.display = null;
+        document.querySelector(".modal-ajouter-nouvelle-photo").classList.remove("modal-previsu-photo-actif");
+        document.querySelector("#modal-input-ajouter-nouvelle-photo").classList.remove("modal-previsu-photo-actif");
+        document.querySelector(".modal-format-taille-photo").classList.remove("modal-previsu-photo-actif");
+        document.querySelector(".form-modal-ajout-photo").style.padding = "22.5px 0 19px 0";
+    }
+};
+
+//Changement de l'aspect du btn Valider sur le form d'ajout de projets
+//fonction pour verifier si les 3 inputs sont remplis et modifier l'aspect du btn 
+
+function verifierNouveauContenue() {
+	let image = document.getElementById("modal-input-ajouter-nouvelle-photo");
+	let titre = document.getElementById("modal-input-titre-photo");
+	let categorie = document.getElementById("modal-input-categorie-photo");
+	if(image.files.length === 0 || categorie.value.trim() === "" || titre.value.trim() === "" ) {
+        document.getElementById("modal-valider-nouveau-projet").className = "inactif";
+
+	} else {
+		document.getElementById("modal-valider-nouveau-projet").className = "actif";
+	};
+};
+
+//addEventListener sur chaque input pour verifier à chaque ajout d'une donnée que tout les inputs soient remplis avec la fonction "verifierNouveauContenue"
+
+document.getElementById("modal-input-ajouter-nouvelle-photo").addEventListener("input", verifierNouveauContenue);
+document.getElementById("modal-input-titre-photo").addEventListener("input", verifierNouveauContenue);
+document.getElementById("modal-input-categorie-photo").addEventListener("input", verifierNouveauContenue);
+
 //Ajouter des projets
 //Lire le form pour récuperer les datas
+
 document.getElementById("modal-form-ajout-photo").addEventListener("submit", function(event) {
     event.preventDefault();
     const formData = new FormData();
@@ -297,60 +409,3 @@ document.getElementById("modal-form-ajout-photo").addEventListener("submit", fun
         document.querySelector(".gallery").appendChild(figure);
     })
 });
-
-//Verifier la taille de l'image envoyé
-
-document.getElementById("modal-input-ajouter-nouvelle-photo").addEventListener("change", () => {
-    const fileInput = document.getElementById("modal-input-ajouter-nouvelle-photo");
-    const tailleMaxImage = 4 * 1024 * 1024;
-    if(fileInput.files[0].size > tailleMaxImage) {
-        alert("Fichier trop volumineux.");
-        document.getElementById("modal-input-ajouter-nouvelle-photo").value = '';
-    }
-    else {
-        if(fileInput.files.length > 0) {
-            // Création de la prévisualisation
-            let previsuImage = document.createElement("img");
-            previsuImage.setAttribute("id","modal-previsu-image");
-            previsuImage.src = URL.createObjectURL(fileInput.files[0]);
-            document.querySelector(".form-modal-ajout-photo").appendChild(previsuImage);
-            document.querySelector("#modal-icone-ajout-photo").style.display = "none"
-            document.querySelector(".modal-ajouter-nouvelle-photo").classList.add("modal-previsu-photo-actif");
-            document.querySelector("#modal-input-ajouter-nouvelle-photo").classList.add("modal-previsu-photo-actif");
-            document.querySelector(".modal-format-taille-photo").classList.add("modal-previsu-photo-actif");
-            let modalAjoutPhoto = document.querySelector(".form-modal-ajout-photo");
-            modalAjoutPhoto.style.padding = "0";
-        }
-    };
-});
-
-//Fonction de reset de la previsualisation de l'image dans la modale photo
-
-function resetPrevisu () {
-    const previsu = document.getElementById("modal-previsu-image")
-    if (previsu) {
-        previsu.remove();
-        document.querySelector("#modal-icone-ajout-photo").style.display = null;
-        document.querySelector(".modal-ajouter-nouvelle-photo").classList.remove("modal-previsu-photo-actif");
-        document.querySelector("#modal-input-ajouter-nouvelle-photo").classList.remove("modal-previsu-photo-actif");
-        document.querySelector(".modal-format-taille-photo").classList.remove("modal-previsu-photo-actif");
-        document.querySelector(".form-modal-ajout-photo").style.padding = "22.5px 0 19px 0";
-    }
-};
-//Changement de l'aspect du btn Valider sur le form d'ajout de projets
-//fonction pour verifier si les 3 inputs sont remplis et modifier l'aspect du btn 
-function verifierNouveauContenue() {
-	let image = document.getElementById("modal-input-ajouter-nouvelle-photo");
-	let titre = document.getElementById("modal-input-titre-photo");
-	let categorie = document.getElementById("modal-input-categorie-photo");
-	if(image.files.length === 0 || categorie.value.trim() === "" || titre.value.trim() === "" ) {
-        document.getElementById("modal-valider-nouveau-projet").className = "inactif";
-
-	} else {
-		document.getElementById("modal-valider-nouveau-projet").className = "actif";
-	};
-};
-//addEventListener sur chaque input pour verifier à chaque ajout d'une donnée que tout les inputs soient remplis avec la fonction "verifierNouveauContenue"
-document.getElementById("modal-input-ajouter-nouvelle-photo").addEventListener("input", verifierNouveauContenue);
-document.getElementById("modal-input-titre-photo").addEventListener("input", verifierNouveauContenue);
-document.getElementById("modal-input-categorie-photo").addEventListener("input", verifierNouveauContenue);

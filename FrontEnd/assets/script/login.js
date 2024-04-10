@@ -1,4 +1,6 @@
-// /////// Page Login ///////
+/////////////////////////////
+///////PAGE DE LOGIN/////////
+/////////////////////////////
 
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
