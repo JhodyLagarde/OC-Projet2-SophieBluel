@@ -27,7 +27,7 @@ fetch("http://localhost:5678/api/works")
     works.forEach((projets) => {
         const figure = document.createElement("figure"); 
         figure.classList.add("projets-figure", "category-0", `category-${projets.category.id}`);
-        figure.setAttribute("id", `projet-figure-${works.id}`)
+        figure.setAttribute("id", `projet-figure-${projets.id}`)
         const imageFigure = document.createElement("img");
         imageFigure.src = projets.imageUrl;
         imageFigure.alt = projets.title;
