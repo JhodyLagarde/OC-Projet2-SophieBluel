@@ -37,17 +37,18 @@ form.addEventListener("submit", function(e){
 				sectionConnection.appendChild(ErreurMdpEmail);
 				ErreurMdpEmail.innerText = "E-mail ou mot de passe incorrect.";
 				sectionConnection.insertBefore(ErreurMdpEmail,form);
-				email.classList.remove("input-form")
-				password.classList.remove("input-form")
+				email.classList.remove("input-form");
+				password.classList.remove("input-form");
 				email.classList.add("err-input");
 				password.classList.add("err-input");
-            throw new Error("E-mail ou mot de passe incorrect");
+            break;
 			//Si cas 200 alors retourner les données de l'API login
             case 200:
             return response.json();
             //Si cas inconnu (default)
             default:
-            throw new Error("Erreur code inconnu");
+                alert("Erreur code inconnu");
+            break;
         }
     })
 	//localStorage pour stocker le token sur le navigateur et retour a la page principal
@@ -55,4 +56,7 @@ form.addEventListener("submit", function(e){
         localStorage.setItem("token", data.token);
         location.href = "index.html";
     })
+    .catch(function(err) {
+        console.error(err);
+    });  
 });

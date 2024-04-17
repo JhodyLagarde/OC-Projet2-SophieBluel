@@ -41,6 +41,9 @@ fetch("http://localhost:5678/api/works")
     // affichage des figures dans la modale galerie avec un seul fetch
 
     modalGalerie (works);
+})
+.catch(function(err) {
+    console.error(err);
 });
 
 // Recuperation des categories via l'API
@@ -95,6 +98,9 @@ fetch("http://localhost:5678/api/categories")
 
     modalAjoutPhoto (categories);
    
+})
+.catch(function(err) {
+    console.error(err);
 });
 
 ///////////////////////////////////////////////////////
@@ -234,7 +240,6 @@ function modalGalerie (works) {
         figure.setAttribute("id", `modal-projet-figure-${projets.id}`);
         const imageFigure = document.createElement("img");
         imageFigure.src = projets.imageUrl;
-        imageFigure.alt = projets.title;
         const iconTrash = document.createElement('i');
         iconTrash.classList.add('fa-solid', 'fa-trash-can', 'trash');
         galleryModal.appendChild(figure);
@@ -266,9 +271,13 @@ function modalGalerie (works) {
                             document.getElementById(`modal-projet-figure-${projets.id}`).remove();
                         break;
                         default:
-                        throw new Error("Erreur code inconnu");
+                            alert("Erreur code inconnu");
+                        break;                   
                     }
                 })
+                .catch(function(err) {
+                    console.error(err);
+                });
             };
         });
     });
@@ -389,7 +398,8 @@ document.getElementById("modal-form-ajout-photo").addEventListener("submit", fun
                 console.log("Nouveau projet créé");
             return response.json();
             default:
-            throw new Error("Erreur code inconnu");
+                alert("Erreur code inconnu");
+            break;
         }
     })
     //Creer les figures une fois le nouveau projet envoyé a l'API
@@ -408,4 +418,7 @@ document.getElementById("modal-form-ajout-photo").addEventListener("submit", fun
         figure.appendChild(titreFigure);
         document.querySelector(".gallery").appendChild(figure);
     })
+    .catch(function(err) {
+        console.error(err);
+    });
 });
